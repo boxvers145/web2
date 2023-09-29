@@ -31,8 +31,19 @@ const MENU = [
 
 // Read all the pizzas from the menu
 router.get('/', (req, res, next) => {
+  const orderByTitle =
+    req?.query?.order?.includes('title')
+      ? req.query.order
+      : undefined;
+  let orderedMenu;
+  console.log(`order by ${orderByTitle ?? 'not requested'}`);
+  if (orderByTitle)
+    orderedMenu = [...MENU].sort((a, b) => a.title.localeCompare(b.title));
+  if (orderByTitle === '-title') orderedMenu = orderedMenu.reverse();
+
+
   console.log('GET /pizzas');
-  res.json(MENU);
+  res.json(orderedMenu ?? MENU);
 });
 
 // Read the pizza identified by an id in the menu
