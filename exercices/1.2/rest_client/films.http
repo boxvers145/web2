@@ -13,7 +13,9 @@ GET {{baseUrl}}/films/1
 GET {{baseUrl}}/films/?order=+duration
 
 ### Read all pizzas sorted by title (ascending)
+
 GET {{baseUrl}}/films/?order=-duration
+
 
 ### create new film
 POST {{baseUrl}}/films
@@ -21,6 +23,21 @@ Content-Type: application/json
 
 {
     "title": "A la poursuite de l'Octobre rouge",
+    "duration": 112,
+    "budget": 45,
+    "link": "https://www.imdb.com/title/tt0099810/"
+
+}
+
+
+### Read all pizzas sorted by title (ascending) error
+GET {{baseUrl}}/films/?order=+durastion
+
+### create new film error
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
     "duration": 112,
     "budget": 45,
     "link": "https://www.imdb.com/title/tt0099810/"

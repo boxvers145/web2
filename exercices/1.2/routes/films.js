@@ -34,6 +34,9 @@ router.get('/', (req, res, next) => {
       : undefined;
   let orderedMenu;
   console.log(`order by ${orderByDuration ?? 'not requested'}`);
+
+  if(!orderByDuration) return res.sendStatus(400);
+
   if (orderByDuration)
     orderedMenu = [...MENU].sort((a, b) => a.duration == b.duration);
   if (orderByDuration === '-duration') orderedMenu = orderedMenu.reverse();
@@ -48,7 +51,9 @@ router.get('/:id', (req, res) => {
 
   const indexOfFilmFound = MENU.findIndex((film) => film.id == req.params.id);
 
-  if (indexOfFilmFound < 0) return res.sendStatus(404);
+  if (indexOfFilmFound < 0) return res.sendStatus(400);
+
+
 
   res.json(MENU[indexOfFilmFound]);
 });
@@ -63,6 +68,13 @@ router.post('/', (req, res) => {
   console.log('POST /Film');
 
   if (!title || !duration || !budget || !link) return res.sendStatus(400); // error code '400 Bad request'
+
+  let matchTitle;
+  console.log(`try to match with ${matchTitle ?? 'not requested'}`);
+
+    matchTitle = [...MENU].find(a => title === a.title);
+
+  if(matchTitle != undefined) return res.sendStatus(409);
 
   const lastItemIndex = MENU?.length !== 0 ? MENU.length - 1 : undefined;
   const lastId = lastItemIndex !== undefined ? MENU[lastItemIndex]?.id : 0;
