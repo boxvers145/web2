@@ -93,4 +93,41 @@ router.post('/', (req, res) => {
   res.json(newFilm);
 });
 
+// Delete a pizza from the menu based on its id
+router.delete('/:id', (req, res) => {
+  console.log(`DELETE /films/${req.params.id}`);
+
+  const foundIndex = MENU.findIndex(film => film.id == req.params.id);
+
+  if (foundIndex < 0) return res.sendStatus(404);
+
+  const itemsRemovedFromMenu = MENU.splice(foundIndex, 1);
+  const itemRemoved = itemsRemovedFromMenu[0];
+
+  res.json(itemRemoved);
+});
+
+
+// Update a pizza based on its id and new values for its parameters
+router.patch('/:id', (req, res) => {
+  console.log(`PATCH /films/${req.params.id}`);
+
+  const title = req?.body?.title;
+  const description = req?.body?.description;
+
+  console.log('POST /films');
+
+  if ((!title && !description) || title?.length === 0 || content?.description === 0) return res.sendStatus(400);
+
+  const foundIndex = MENU.findIndex(film => film.id == req.params.id);
+
+  if (foundIndex < 0) return res.sendStatus(404);
+
+  const updatedFilm = {...MENU[foundIndex], ...req.body};
+
+  MENU[foundIndex] = updatedFilm;
+
+  res.json(updatedFilm);
+});
+
 module.exports = router;

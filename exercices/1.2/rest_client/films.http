@@ -1,7 +1,7 @@
 ### read all films
 @baseUrl = http://localhost:3000
 
-GET {{baseUrl}}/films
+GET {{baseUrl}}/films/
 
 ### read film N2
 GET {{baseUrl}}/films/2
@@ -42,4 +42,15 @@ Content-Type: application/json
     "budget": 45,
     "link": "https://www.imdb.com/title/tt0099810/"
 
+}
+
+### Delete pizza identified by 2
+DELETE {{baseUrl}}/films/2
+
+### Update the pizza identified by 2
+PATCH {{baseUrl}}/films/2
+Content-Type: application/json
+
+{
+    "title":"Fortnite"
 }
