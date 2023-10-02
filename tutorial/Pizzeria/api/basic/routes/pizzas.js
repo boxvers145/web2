@@ -1,5 +1,8 @@
 var express = require('express');
+const {serialize, parse} = require('../utils/json');
 var router = express.Router();
+
+const jsonDbPath = __dirname + '/../data/pizzas.json';
 
 const MENU = [
   {
@@ -37,38 +40,47 @@ router.get('/', (req, res, next) => {
       : undefined;
   let orderedMenu;
   console.log(`order by ${orderByTitle ?? 'not requested'}`);
+
+  const pizzas = parse(jsonDbPath, MENU);
+
   if (orderByTitle)
-    orderedMenu = [...MENU].sort((a, b) => a.title.localeCompare(b.title));
+    orderedMenu = [...pizzas].sort((a, b) => a.title.localeCompare(b.title));
   if (orderByTitle === '-title') orderedMenu = orderedMenu.reverse();
 
 
   console.log('GET /pizzas');
-  res.json(orderedMenu ?? MENU);
+  return res.json(orderedMenu ?? MENU);
 });
 
 // Read the pizza identified by an id in the menu
 router.get('/:id', (req, res) => {
   console.log(`GET /pizzas/${req.params.id}`);
 
-  const indexOfPizzaFound = MENU.findIndex((pizza) => pizza.id == req.params.id);
+  const pizzas = parse(jsonDbPath, MENU);
+
+  const indexOfPizzaFound = pizzas.findIndex((pizza) => pizza.id == req.params.id);
 
   if (indexOfPizzaFound < 0) return res.sendStatus(404);
 
-  res.json(MENU[indexOfPizzaFound]);
+  return res.json(MENU[indexOfPizzaFound]);
 });
 
 // Delete a pizza from the menu based on its id
 router.delete('/:id', (req, res) => {
   console.log(`DELETE /pizzas/${req.params.id}`);
 
-  const foundIndex = MENU.findIndex(pizza => pizza.id == req.params.id);
+  const pizzas = parse(jsonDbPath, MENU);
+
+  const foundIndex = pizzas.findIndex(pizza => pizza.id == req.params.id);
 
   if (foundIndex < 0) return res.sendStatus(404);
 
-  const itemsRemovedFromMenu = MENU.splice(foundIndex, 1);
+  const itemsRemovedFromMenu = pizzas.splice(foundIndex, 1);
   const itemRemoved = itemsRemovedFromMenu[0];
 
-  res.json(itemRemoved);
+  serialize(jsonDbPath, pizzas);
+
+  return res.json(itemRemoved);
 });
 
 // Create a pizza to be added to the menu.
@@ -80,8 +92,10 @@ router.post('/', (req, res) => {
 
   if (!title || !content) return res.sendStatus(400); // error code '400 Bad request'
 
-  const lastItemIndex = MENU?.length !== 0 ? MENU.length - 1 : undefined;
-  const lastId = lastItemIndex !== undefined ? MENU[lastItemIndex]?.id : 0;
+
+  const pizzas = parse(jsonDbPath, MENU);
+  const lastItemIndex = MENU?.length !== 0 ? pizzas.length - 1 : undefined;
+  const lastId = lastItemIndex !== undefined ? pizzas[lastItemIndex]?.id : 0;
   const nextId = lastId + 1;
 
   const newPizza = {
@@ -90,9 +104,11 @@ router.post('/', (req, res) => {
     content: content,
   };
 
-  MENU.push(newPizza);
+  pizzas.push(newPizza);
 
-  res.json(newPizza);
+  serialize(jsonDbPath, pizzas);
+
+  return res.json(newPizza);
 });
 
 // Update a pizza based on its id and new values for its parameters
@@ -106,15 +122,19 @@ router.patch('/:id', (req, res) => {
 
   if ((!title && !content) || title?.length === 0 || content?.length === 0) return res.sendStatus(400);
 
-  const foundIndex = MENU.findIndex(pizza => pizza.id == req.params.id);
+  const pizzas = parse(jsonDbPath, MENU);
+
+  const foundIndex = pizzas.findIndex(pizza => pizza.id == req.params.id);
 
   if (foundIndex < 0) return res.sendStatus(404);
 
-  const updatedPizza = {...MENU[foundIndex], ...req.body};
+  const updatedPizza = {...pizzas[foundIndex], ...req.body};
 
-  MENU[foundIndex] = updatedPizza;
+  pizzas[foundIndex] = updatedPizza;
 
-  res.json(updatedPizza);
+  serialize(jsonDbPath, pizzas);
+
+  return res.json(updatedPizza);
 });
 
 module.exports = router;
