@@ -24,3 +24,14 @@ Content-Type: application/json
 {
     "content":"Epinards, Brocolis, Olives vertes, Basilic"
 }
+
+### Delete pizza identified by 2
+DELETE {{baseUrl}}/pizzas/2
+
+### Update the pizza identified by 6
+PATCH {{baseUrl}}/pizzas/5
+Content-Type: application/json
+
+{
+    "title":"Magic Green 2"
+}
