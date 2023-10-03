@@ -1,6 +1,6 @@
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000
-GET {{baseUrl}}/pizzas
+GET {{baseUrl}}/pizzas/all
 
 ### Read all pizzas sorted by title (ascending)
 GET {{baseUrl}}/pizzas/?order=+title

@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ### Delete pizza identified by 2
-DELETE {{baseUrl}}/films/2
+DELETE {{baseUrl}}/films/4
 
 ### Update the pizza identified by 2
 PATCH {{baseUrl}}/films/2

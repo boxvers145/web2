@@ -49,7 +49,7 @@ router.get('/', (req, res, next) => {
 
 
   console.log('GET /pizzas');
-  return res.json(orderedMenu ?? MENU);
+  return res.json(orderedMenu ?? pizzas);
 });
 
 // Read the pizza identified by an id in the menu
@@ -62,7 +62,7 @@ router.get('/:id', (req, res) => {
 
   if (indexOfPizzaFound < 0) return res.sendStatus(404);
 
-  return res.json(MENU[indexOfPizzaFound]);
+  return res.json(pizzas[indexOfPizzaFound]);
 });
 
 // Delete a pizza from the menu based on its id
