@@ -1,6 +1,6 @@
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000
-GET {{baseUrl}}/pizzas/all
+GET {{baseUrl}}/pizzas/
 
 ### Read all pizzas sorted by title (ascending)
 GET {{baseUrl}}/pizzas/?order=+title
@@ -26,12 +26,12 @@ Content-Type: application/json
 }
 
 ### Delete pizza identified by 2
-DELETE {{baseUrl}}/pizzas/2
+DELETE {{baseUrl}}/pizzas/7
 
 ### Update the pizza identified by 6
-PATCH {{baseUrl}}/pizzas/5
+PATCH {{baseUrl}}/pizzas/8
 Content-Type: application/json
 
 {
-    "title":"Magic Green 2"
+    "title":"fortnite2"
 }
