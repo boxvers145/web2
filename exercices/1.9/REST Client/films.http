@@ -1,0 +1,56 @@
+### read all films
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}/films/
+
+### read film N2
+GET {{baseUrl}}/films/2
+
+### read film N1
+GET {{baseUrl}}/films/1
+
+### Read all pizzas sorted by title (ascending)
+GET {{baseUrl}}/films/?order=+duration
+
+### Read all pizzas sorted by title (ascending)
+
+GET {{baseUrl}}/films/?order=-duration
+
+
+### create new film
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "A la poursuite de l'Octobre rouge",
+    "duration": 112,
+    "budget": 45,
+    "link": "https://www.imdb.com/title/tt0099810/"
+
+}
+
+
+### Read all pizzas sorted by title (ascending) error
+GET {{baseUrl}}/films/?order=+durvghftghrdtution
+
+### create new film error
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "duration": 112,
+    "budget": 45,
+    "link": "https://www.imdb.com/title/tt0099810/"
+
+}
+
+### Delete pizza identified by 2
+DELETE {{baseUrl}}/films/4
+
+### Update the pizza identified by 2
+PATCH {{baseUrl}}/films/2
+Content-Type: application/json
+
+{
+    "title":"Fortnite"
+}
