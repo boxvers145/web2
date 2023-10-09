@@ -69,11 +69,18 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   console.log(`GET /films/${req.params.id}`);
 
+  
   const films = parse(jsonDbPath, MENU);
 
-  const indexOfFilmFound = films.findIndex((film) => film.id === req.params.id);
+  const idInRequest = parseInt(req.params.id, 10);
 
-  if (indexOfFilmFound < 0) return res.sendStatus(400);
+  const indexOfFilmFound = films.findIndex( (film) => film.id === idInRequest);
+  
+
+  console.log(`req : ${req.params.id}`);
+  console.log(indexOfFilmFound);
+
+  if (indexOfFilmFound < 0) {return res.sendStatus(400);}
 
 
 
