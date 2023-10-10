@@ -32,14 +32,38 @@ const MENU = [
    GET /pizzas?order=-title : descending order by title
 */
 function ReadAllFilms (orderby){
-  const orderByTitle = orderby?.includes('duration') ? orderby : undefined;
+
+  /* const orderByTitle = orderby?.includes('duration') ? orderby : undefined;
   const films = parse(jsonDbPath, MENU);
   
   let orderedMenu = [...films].sort((a, b) => a.duration - b.duration);
   if (orderByTitle === '-duration') orderedMenu = orderedMenu.reverse();
 
   const allFilmsPotentiallyOrderd = orderedMenu ?? films;
-  return allFilmsPotentiallyOrderd;
+  return allFilmsPotentiallyOrderd; */
+
+  
+
+
+  const orderByDuration =
+  orderby?.includes('duration')
+      ? orderby
+      : undefined;
+
+
+  const films = parse(jsonDbPath, MENU);
+
+  if(!orderByDuration) {
+    return films;
+  }
+
+  console.log('saucisse')
+  let orderedMenu = [...films].sort((a, b) => a.duration - b.duration);
+  if (orderByDuration === '-duration') orderedMenu = orderedMenu.reverse();
+
+  return orderedMenu ?? films;
+
+
 }
 
 function ReadOneFilm(id) {
