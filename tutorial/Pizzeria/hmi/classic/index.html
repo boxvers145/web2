@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheets/style.css">
     <link rel="shortcut icon" href="./img/pizza-svgrepo-com.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <title>Pizzeria</title>
 </head>
+
 <body>
     <header>
-        <h1>We love Pizza</h1>
+        <h1 class="animate__animated animate__bounce">We love Pizza</h1>
     </header>
-    
+
     <main>
-        <audio id="audioPlayer" controls autoplay>
-            <source
-            src="./sound/Gwyn-Lord-of-Cinder-Dark-Souls-Soundtrack.mp3"
-            type="audio/mp3"
-            />
-        Your browser does not support the audio element.
+        <audio class="animate__animated animate__heartBeat" id="audioPlayer" controls autoplay>
+            <source src="./sound/Gwyn-Lord-of-Cinder-Dark-Souls-Soundtrack.mp3" type="audio/mp3" />
+            Your browser does not support the audio element.
     </main>
 
     <footer>
-        <h1>But we also love JS</h1>
-        <img src="./img/js-logo.png" alt="" />
+        <h1 class="animate__animated animate__backInDown animate__delay-1s">But we also love JS</h1>
+        <img class="animate__animated animate__wobble animate__delay-2s" src="./img/js-logo.png" alt="" />
     </footer>
+
     <script src="index.js"></script>
 </body>
+
 </html>
